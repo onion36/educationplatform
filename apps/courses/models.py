@@ -8,10 +8,11 @@ from django.db import models
 # from organization.models import CourseOrg, Teacher
 
 # Create your models here.
+from organization.models import Teacher, CourseOrg
 
 
 class Course(models.Model):
-    # course_org = models.ForeignKey(CourseOrg, verbose_name="课程机构", null=True, blank=True)
+    course_org = models.ForeignKey(CourseOrg, verbose_name="课程机构", null=True, blank=True)
     name = models.CharField(max_length=50, verbose_name=u"课程名")
     desc = models.CharField(max_length=300, verbose_name=u"课程描述")
     detail = models.TextField(verbose_name=u"课程详情")
@@ -19,7 +20,7 @@ class Course(models.Model):
     degree = models.CharField(choices=(('cj', u"初级"), ('zj', u"中级"), ('gj', u"高级")), max_length=2)
     learn_times = models.IntegerField(default=0, verbose_name=u"学习时长（分钟数）")
     students = models.IntegerField(default=0, verbose_name=u"学习人数")
-    # teacher = models.ForeignKey(Teacher, verbose_name=u'讲师', null=True, blank=True)
+    teacher = models.ForeignKey(Teacher, verbose_name=u'讲师', null=True, blank=True)
     fav_nums = models.IntegerField(default=0, verbose_name=u"收藏人数")
     image = models.ImageField(upload_to="courses/%Y/%m", verbose_name=u"封面图片", max_length=100)
     click_nums = models.IntegerField(default=0, verbose_name=u"点击数")
