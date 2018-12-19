@@ -30,7 +30,7 @@ SECRET_KEY = '_wn8st=k%%90mfc)aoszur=4*a048@bs9qz2wi9a0=@q2jannr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'pure_pagination',
+    'DjangoUeditor'
 ]
 AUTH_USER_MODEL = "users.UserProfile"
 
@@ -148,6 +149,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 EMAIL_HOST = "smtp.sina.com"

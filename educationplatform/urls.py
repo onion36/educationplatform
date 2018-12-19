@@ -21,19 +21,23 @@ import xadmin
 from django.views.static import serve
 
 from organization.views import OrgView
-from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView,ModifyPwdView
+from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView,ModifyPwdView, LogoutView
 from educationplatform.settings import MEDIA_ROOT
+from users.views import IndexView
 
 
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
 
     #配置上传文件的访问处理函数（media文件）
     url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT}),
+    #配置上传文件的访问处理函数（media文件）
+    # url(r'^static/(?P<path>.*)$', serve, {"document_root":STATIC_ROOT}),
 
     #验证码
     url(r'^captcha/', include('captcha.urls')),
@@ -51,6 +55,16 @@ urlpatterns = [
     url(r'^org/', include('organization.urls', namespace="org")),
     #课程相关url配置
     url(r'^course/', include('courses.urls', namespace="course")),
-
+    #课程相关url配置
+    url(r'^teacher/', include('courses.urls', namespace="course")),
+    # 用户相关url配置
+    url(r'^users/', include('users.urls', namespace="users")),
+    # 富文本相关url
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
 
 ]
+#  全局404处理函数
+handler404 = 'users.views.page_not_found'
+#  全局500处理函数
+handler500 = 'users.views.page_error'
+

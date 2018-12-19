@@ -3,7 +3,8 @@
 import xadmin
 from xadmin import views
 
-from .models import EmailVerifyRecord, Banner
+from .models import EmailVerifyRecord, Banner, UserProfile
+
 
 class BaseSetting(object):
     enable_themes = True
@@ -15,6 +16,8 @@ class EmailVerifyRecordAdmin(object):
     list_display = ['code', 'email', 'send_type', 'send_time']
     search_fields = ['code', 'email', 'send_type']
     list_filter = ['code', 'email', 'send_type', 'send_time']
+    model_icon = 'fa fa-envelope-open'
+    # fa - envelope - open
 
 
 #设置页头页尾
