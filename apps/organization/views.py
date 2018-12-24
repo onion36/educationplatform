@@ -277,15 +277,16 @@ class TeacherDetailView(View):
         teacher.save()
         all_courses = Course.objects.filter(teacher=teacher)
 
-        #查询讲师是否收藏
         has_teacher_faved = False
-        if UserFavourite.objects.filter(user=request.user, fav_type=3, fav_id=teacher_id):
-            has_teacher_faved = True
-
-        #查询机构是否收藏
         has_org_faved = False
-        if UserFavourite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
-            has_org_faved = True
+        if request.user.is_authenticated():
+            # 查询讲师是否收藏
+            if UserFavourite.objects.filter(user=request.user, fav_type=3, fav_id=teacher_id):
+                has_teacher_faved = True
+
+            #查询机构是否收藏
+            if UserFavourite.objects.filter(user=request.user, fav_type=2, fav_id=teacher.org.id):
+                has_org_faved = True
 
         #讲师排行
         sorted_teacher = Teacher.objects.all().order_by("-click_nums")[:3]
